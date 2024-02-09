@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
         return repository.findAll();
     }
 
-    @HystrixCommand(fallbackMethod = "callUserService_Fallback")
+   // @HystrixCommand(fallbackMethod = "callUserService_Fallback")
     @Override
     public User updateUser(String email, User user) throws UserNotFoundException {
         Optional<User> optional = repository.findByEmail(email);
@@ -52,15 +52,13 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException();
         }
         User existingUser = optional.get();
-        if (existingUser.getUserName() != null) {
-            existingUser.setUserName(user.getUserName());
+        if (existingUser.getName() != null) {
+            existingUser.setName(user.getName());
         }
         if (existingUser.getPhoneNo() != null) {
             existingUser.setPhoneNo(user.getPhoneNo());
         }
-        if (existingUser.getPassword() != null) {
-            existingUser.setPassword(user.getPassword());
-        }
+
         proxy.updateUser(existingUser);
         existingUser.setPassword(null);
         existingUser.setPhoneNo(null);
@@ -76,7 +74,7 @@ public class UserServiceImpl implements UserService {
         return optional.get();
     }
 
-    @HystrixCommand(fallbackMethod = "callUserService_Fallback")
+    //@HystrixCommand(fallbackMethod = "callUserService_Fallback")
     @Override
     public boolean deleteUser(String email) throws UserNotFoundException {
         boolean res = true;

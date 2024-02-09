@@ -48,14 +48,11 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException();
         }
         User existingUser = optional.get();
-        if (existingUser.getUserName() != null) {
-            existingUser.setUserName(user.getUserName());
+        if (existingUser.getName() != null) {
+            existingUser.setName(user.getName());
         }
         if (existingUser.getPhoneNo() != null) {
             existingUser.setPhoneNo(user.getPhoneNo());
-        }
-        if (existingUser.getPassword() != null) {
-            existingUser.setPassword(user.getPassword());
         }
         return repository.save(existingUser);
     }

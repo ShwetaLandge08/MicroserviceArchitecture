@@ -1,9 +1,6 @@
 package com.practice.UserService.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,5 +17,5 @@ public class User {
     private String email;
     private String password;
     private String phoneNo;
-    private String userName;
+    private String name;
 }

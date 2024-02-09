@@ -69,4 +69,20 @@ public class StudentController {
             throw new RuntimeException(e);
         }
     }
+    @GetMapping("/teacher")
+    public ResponseEntity<?> findStudentOnTeacherBasis(HttpServletRequest servletRequest) {
+        System.out.println(servletRequest.getHeader("Authorization"));
+        System.out.println(servletRequest);
+        Claims claims = (Claims) servletRequest.getAttribute("claims");
+
+        System.out.println(claims);
+        String email = claims.getSubject();
+        System.out.println(email);
+        try {
+            User user = userService.getUser(email);
+            return new ResponseEntity<>(service.getStudentForClassTeacher(user), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

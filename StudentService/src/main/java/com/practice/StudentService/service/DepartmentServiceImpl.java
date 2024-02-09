@@ -2,7 +2,6 @@ package com.practice.StudentService.service;
 
 import com.practice.StudentService.domain.Department;
 import com.practice.StudentService.domain.Student;
-import com.practice.StudentService.domain.Subject;
 import com.practice.StudentService.exception.DepartmentAlreadyExistException;
 import com.practice.StudentService.exception.DepartmentNotFoundException;
 import com.practice.StudentService.exception.StudentNotFoundException;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -35,8 +33,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public Student addDepartmentForStudent(int studentId, Department department) throws DepartmentAlreadyExistException, StudentNotFoundException {
+    public Student addDepartmentForStudent(int studentId, int departmentId) throws DepartmentAlreadyExistException, StudentNotFoundException {
         Student student = repository.findById(studentId).orElseThrow(StudentNotFoundException::new);
+        Department department = departmentList.stream().filter(department1 -> department1.getDepartmentId() == departmentId).findFirst().orElseThrow();
+
         if (student.getDepartmentName() != null && student.getDepartmentName().getDepartmentId() == department.getDepartmentId()) {
             throw new DepartmentAlreadyExistException();
         }

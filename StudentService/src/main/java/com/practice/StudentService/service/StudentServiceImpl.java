@@ -1,13 +1,16 @@
 package com.practice.StudentService.service;
 
 import com.practice.StudentService.domain.Student;
+import com.practice.StudentService.domain.User;
 import com.practice.StudentService.exception.StudentAlreadyExistException;
 import com.practice.StudentService.exception.StudentNotFoundException;
 import com.practice.StudentService.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -48,5 +51,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student getStudentOnStudentId(int id) throws StudentNotFoundException {
         return repository.findById(id).orElseThrow(StudentNotFoundException::new);
+    }
+
+    @Override
+    public List<Student> getStudentForClassTeacher(User user) {
+        List<Student> all = repository.findAll();
+        return all.stream().filter(student -> student.getClassTeacher().equals(user)).toList();
     }
 }

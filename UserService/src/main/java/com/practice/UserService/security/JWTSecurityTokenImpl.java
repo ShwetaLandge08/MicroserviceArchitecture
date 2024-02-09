@@ -19,7 +19,7 @@ public class JWTSecurityTokenImpl implements JWTSecurityTokenGenerator {
 
     private Map<String, String> createToken(Map<String, String> claims, User user) {
         claims.put("email", user.getEmail());
-        claims.put("name", user.getUserName());
+        claims.put("name", user.getName());
         claims.put("message", "User login successfully");
         String jwtToken = Jwts.builder().setClaims(claims).setSubject(user.getEmail())
                 .setIssuedAt(new Date()).signWith(getSignKey()).compact();

@@ -10,7 +10,7 @@ import com.practice.StudentService.repository.StudentRepository;
 import java.util.List;
 
 public interface DepartmentService {
-    Student addDepartmentForStudent(int studentId, Department department)throws DepartmentAlreadyExistException, StudentNotFoundException;
+    Student addDepartmentForStudent(int studentId, int departmentId)throws DepartmentAlreadyExistException, StudentNotFoundException;
     Student deleteDepartmentForStudent(int studentId,int departmentId)throws DepartmentNotFoundException,StudentNotFoundException;
   // Student updateDepartment(int studentId, Department department) throws StudentNotFoundException,DepartmentNotFoundException;
 

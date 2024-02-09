@@ -23,8 +23,9 @@ public class DepartmentController {
     }
 
     @PutMapping("/addDepartment/{studentId}")
-    public ResponseEntity<?> addDepartment(@RequestBody Department department, @PathVariable int studentId) throws StudentNotFoundException, DepartmentAlreadyExistException {
-        return new ResponseEntity<>(departmentService.addDepartmentForStudent(studentId, department), HttpStatus.OK);
+    public ResponseEntity<?> addDepartment(@RequestBody int departmentId, @PathVariable int studentId) throws StudentNotFoundException, DepartmentAlreadyExistException {
+        System.out.println(departmentId);
+        return new ResponseEntity<>(departmentService.addDepartmentForStudent(studentId, departmentId), HttpStatus.OK);
     }
 
     @PutMapping("/deleteDepartment/{studentId}/{departmentId}")
